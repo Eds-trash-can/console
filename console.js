@@ -1,16 +1,19 @@
+// this file is part of the console.js libary by derzombiiie
+// this is libary is under the GPL-3.0-or-later license
 const readline = require("readline")
 
 module.exports.registerdcmds = {}
 
-const rl = readline.createInterface({
-	input:  process.stdin,
-	output: process.stdout
-})
 
 this.prefix = ""
 this.init = () => {
+	this.rl = readline.createInterface({
+		input:  process.stdin,
+		output: process.stdout
+	})
+
 	process.stdout.write(this.prefix + "> ")
-	rl.on("line", (i) => {
+	this.rl.on("line", (i) => {
 		module.exports.eval(i)
 		process.stdout.write(this.prefix + "> ")
 	})	
