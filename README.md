@@ -23,7 +23,7 @@ con.init()	// initializing the library
 
 ## Common commands:
 
-- help or ?
+- list, help or ?
   > Print out all registered commands
 
 - eval
