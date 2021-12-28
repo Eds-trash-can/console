@@ -18,7 +18,7 @@ con.registerexit(_ => {
 })
 
 
-con.init()	// initializing the libary
+con.init()	// initializing the library
 ```
 
 ## Common commands:
