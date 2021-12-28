@@ -4,8 +4,6 @@ A console libary using readline
 ```js
 const con	= require("console/console.js")
 
-con.init()	// initializing the libary
-
 // register a command
 con.registercmd("test", (argv) => {
 	console.log("Arguments passed to function",argv)
@@ -18,6 +16,9 @@ con.prefix	// get or set the prefix of the shell
 con.registerexit(_ => {
 	console.log("this gets executed before exit")
 })
+
+
+con.init()	// initializing the libary
 ```
 
 ## Common commands:
