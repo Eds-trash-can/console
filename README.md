@@ -12,7 +12,7 @@ con.registercmd("test", (argv) => {
 })
 
 con.prefix	// get or set the prefix of the shell
-			// useful for navigation
+		// useful for navigation
 
 // register exit hooks: (+250ms for async things)
 con.registerexit(_ => {
