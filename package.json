@@ -1,0 +1,26 @@
+{
+  "name": "rl-console",
+  "version": "1.0.0",
+  "description": "A console api thing using readline",
+  "main": "-",
+  "scripts": {
+    "test": "-"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eds-trash-can/console.git"
+  },
+  "keywords": [
+    "console",
+    "readline"
+  ],
+  "author": "DerZombiiie",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Eds-trash-can/console/issues"
+  },
+  "homepage": "https://github.com/Eds-trash-can/console#readme",
+  "dependencies": {
+    "readline": "^1.3.0"
+  }
+}
