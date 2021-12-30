@@ -2,8 +2,8 @@
 // this is libary is under the GPL-3.0-or-later license
 const readline = require("readline")
 
-module.exports.registerdcmds = {}
-
+this.registerdcmds = {}
+this.registerdcmdstype = {}
 
 this.prefix = ""
 this.init = () => {
@@ -13,64 +13,77 @@ this.init = () => {
 	})
 
 	process.stdout.write(this.prefix + "> ")
-	this.rl.on("line", (i) => {
-		module.exports.eval(i)
-		process.stdout.write(this.prefix + "> ")
+	this.rl.on("line", (cmd) => {
+		this.eval(cmd, _ => process.stdout.write(this.prefix + "> "))
 	})	
-	return module.exports
+	return this
 }
-this.eval = ( cmd ) => {
-	let split = cmd.split( " " )
+this.eval = ( cmd, resolve ) => {
+	debugger
+	let split = cmd.split(" ")
 	let comm  = split[0]
 	split.shift()
-	let args  = split
+	let args  = JSON.parse(JSON.stringify(split));
 	args.unshift(this.prefix)
 
-	if (! comm ) return // if cmd empty dont do anything
+	if ( !comm ) return resolve() // if cmd empty dont do anything
 
 	if ( comm === "FE!") {
 		process.exit(-1) // Force exit
 	}
 
-	if ( module.exports.registerdcmds[comm] ) {
-		module.exports.registerdcmds[comm](args)
+	if ( this.registerdcmds[comm] ) {
+		console.log("cmd", cmd, "-", comm, "- type", this.registerdcmdstype[comm])
+
+		if( !this.registerdcmdstype[comm] ) { // check if func uses res
+			this.registerdcmds[comm](args)
+			if(resolve) resolve()
+		} else {
+			this.registerdcmds[comm](args, resolve)
+		}
 	} else {
-		console.log(`Bad command! '${ comm }'`)			
+		console.log(`Bad command! '${comm}'`)
+		if(resolve) resolve()
 	}
 }
-this.registercmd = ( cmd, callback ) => {
+
+this.registercmd = ( cmd, callback, res = false ) => {
 	this.registerdcmds[cmd] = callback
+	this.registerdcmdstype[cmd] = res
+	return this
 }
 this.alias = ( cmd, alias ) => {
 	this.registerdcmds[alias] = this.registerdcmds[cmd]
-}
+	this.registerdcmdstype[alias] = this.registerdcmdstype[cmd]
+	return this
+} 
+
 this.exitcmds = []
 this.registerexit = ( callback ) => {
 	this.push( callback )
 }
 
 // preregisterd commands:
-this.registerdcmds["list"] = () => {
+this.registercmd("list", () => {
 	console.log( Object.keys(this.registerdcmds).sort().join(", ") )
-}
-this.registerdcmds["help"] = () => {
-	this.eval("list")
-}
-this.registerdcmds["?"] = () => {
-	this.eval("help")
-}
-this.registerdcmds["eval"] = () => {
+})
+this.alias("list", "help")
+this.alias("help", "?")
+
+this.registercmd("eval", () => {
 	try {
 		console.log(eval(args.join(" ")))
 	} catch {
 		console.log("Couldn't execute!")
 	}
-}
-this.registerdcmds["exit"] = () => {
+})
+
+this.registercmd("exit", () => {
 	this.exitcmds.forEach((cb) => {cb()})
 
 	setTimeout(_ => process.exit(0), 250)
-}
-this.registerdcmds["clear"] = () => {
+})
+
+this.registercmd("clear", () => {
 	console.clear()
-}
+})

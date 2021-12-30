@@ -5,9 +5,18 @@ A console libary using readline
 const con	= require("console/console.js")
 
 // register a command
-con.registercmd("test", (argv) => {
-	console.log("Arguments passed to function",argv)
+con.registercmd("command", (argv) => {
+	console.log("Arguments passed to function:", argv)
 })
+
+// register a asyncronous command
+con.registercmd("async", async (resolve, argv) => {
+	console.log("*doing some async stuff*")
+	resolve() // has to be executed before returning
+}, true)
+
+// register alias'es
+con.alias("command", "alias")
 
 con.prefix	// get or set the prefix of the shell
 		// useful for navigation
@@ -16,7 +25,6 @@ con.prefix	// get or set the prefix of the shell
 con.registerexit(_ => {
 	console.log("this gets executed before exit")
 })
-
 
 con.init()	// initializing the library
 ```
