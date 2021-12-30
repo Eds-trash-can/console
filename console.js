@@ -41,6 +41,9 @@ this.eval = ( cmd ) => {
 this.registercmd = ( cmd, callback ) => {
 	this.registerdcmds[cmd] = callback
 }
+this.alias = ( cmd, alias ) => {
+	this.registerdcmds[alias] = this.registerdcmds[cmd]
+}
 this.exitcmds = []
 this.registerexit = ( callback ) => {
 	this.push( callback )
