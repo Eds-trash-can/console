@@ -33,8 +33,7 @@ this.eval = ( cmd, resolve ) => {
 	}
 
 	if ( this.registerdcmds[comm] ) {
-		console.log("cmd", cmd, "-", comm, "- type", this.registerdcmdstype[comm])
-
+		
 		if( !this.registerdcmdstype[comm] ) { // check if func uses res
 			this.registerdcmds[comm](args)
 			if(resolve) resolve()
