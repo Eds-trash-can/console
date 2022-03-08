@@ -2,9 +2,9 @@
   "name": "rl-console",
   "version": "1.0.0",
   "description": "A console api thing using readline",
-  "main": "-",
+  "main": "console.js",
   "scripts": {
-    "test": "-"
+    "test": ""
   },
   "repository": {
     "type": "git",
