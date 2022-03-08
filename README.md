@@ -1,8 +1,10 @@
 # console
 A console libary using readline
 
+Install the library: `npm i https://github.com/Eds-trash-can/console`
+
 ```js
-const con	= require("console/console.js")
+const con	= require("rl-console")
 
 // register a command
 con.registercmd("command", (argv) => {
