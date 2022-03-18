@@ -12,7 +12,7 @@ con.registercmd("command", (argv) => {
 })
 
 // register a asyncronous command
-con.registercmd("async", async (resolve, argv) => {
+con.registercmd("async", async (argv, resolve) => {
 	console.log("*doing some async stuff*")
 	resolve() // has to be executed before returning
 }, true)
